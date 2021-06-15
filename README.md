@@ -13,4 +13,4 @@ JS
 BEM Nested
 Адаптивная верстка
 
-Ссылка на страницу :
+Ссылка на страницу : https://yana-yanchenko.github.io/mesto/
