@@ -3,4 +3,15 @@
   max-width: 880px;
   width: 100%;
   margin: 67px auto 60px auto;
+  padding: 0;
+  display: flex;
+}
+
+@media screen and (max-width: 1020px) {
+  .footer {
+    margin: 48px 0 36px 0;
+    width: calc(100% - 38px);
+    display: flex;
+    padding: 0 19px;
+  }
 }

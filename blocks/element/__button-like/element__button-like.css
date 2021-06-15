@@ -10,4 +10,10 @@
   cursor: pointer;
   border: none;
   align-self: center;
+  transition: opacity 0.2s linear;
 }
+
+.element__button-like:hover {
+  opacity: 0.5;
+}
+
