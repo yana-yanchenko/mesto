@@ -4,13 +4,8 @@
   line-height: 22px;
   margin: 0;
   padding: 0;
-  transition: opacity 0.2s linear;
-  cursor: pointer;
 }
 
-.header__logo:hover {
-  opacity: 0.6;
-}
 
 @media screen and (max-width: 1020px) {
   .footer__copiright {
