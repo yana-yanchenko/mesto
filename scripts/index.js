@@ -1,29 +1,3 @@
-const initialCards = [{
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const buttonEditProfile = document.querySelector('.profile__button-edit')
 const popups = document.querySelectorAll(".popup");
 const popupProfile = document.querySelector('.popup_type_profile')
@@ -44,10 +18,14 @@ const jobProfile = document.querySelector('.profile__occupation')
 const buttonAddCard = document.querySelector('.profile__button-add')
 const placeCard = document.querySelector('.elements')
 
-function openPopup(element) {
-  element.classList.add('popup_opened');
+function openPropfilePopup() {
   nameInput.value = nameProfile.textContent
   jobInput.value = jobProfile.textContent
+  openPopup(popupProfile)
+}
+
+function openPopup(element) {
+  element.classList.add('popup_opened');
 }
 
 function closePopup(element) {
@@ -107,12 +85,12 @@ function renderCard(name, link) {
 }
 
 initialCards.forEach(function (item) {
-  const card = renderCard(item['name'], item['link']);
+  const card = renderCard(item.name, item.link);
   placeCard.append(card)
 })
 
 
 formProfile.addEventListener('submit', formSubmitHandler);
 formCard.addEventListener('submit', cardSubmitHandler);
-buttonEditProfile.addEventListener('click', () => openPopup(popupProfile));
+buttonEditProfile.addEventListener('click', () => openPropfilePopup());
 buttonAddCard.addEventListener('click', () => openPopup(popupCard))
