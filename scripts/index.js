@@ -26,10 +26,12 @@ function openPropfilePopup() {
 
 function openPopup(element) {
   element.classList.add('popup_opened');
+  document.addEventListener('keydown', handleCloseEscape)
 }
 
 function closePopup(element) {
   element.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleCloseEscape)
 }
 
 function formSubmitHandler(evt) {
@@ -56,6 +58,13 @@ popups.forEach((popup) => {
     }
   });
 });
+
+const handleCloseEscape = (event) => {
+  if (event.key === 'Escape') {
+    const popupOpen = document.querySelector(".popup_opened")
+    closePopup(popupOpen)
+  }
+}
 
 function handleDeleteCard(item) {
   item.target.closest('.element').remove();
