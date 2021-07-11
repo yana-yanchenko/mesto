@@ -13,7 +13,6 @@ const showInputError = (formElement, inputElement, config, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
-  console.log(errorElement);
   errorElement.classList.add(config.errorClass);
 };
 
