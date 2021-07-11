@@ -17,6 +17,7 @@ const jobProfile = document.querySelector('.profile__occupation')
 
 const buttonAddCard = document.querySelector('.profile__button-add')
 const placeCard = document.querySelector('.elements')
+const buttonSubmitCard = document.querySelector('.popup__button-keep')
 
 function openPropfilePopup() {
   nameInput.value = nameProfile.textContent
@@ -45,16 +46,13 @@ function cardSubmitHandler(evt) {
   evt.preventDefault();
   placeCard.prepend(renderCard(titleInput.value, linkInput.value))
   closePopup(popupCard)
-  formCard.reset()
+  resetFormCard()
 }
 
 popups.forEach((popup) => {
   popup.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("popup__button-close")) {
+    if (evt.target.classList.contains("popup__button-close") || evt.target.classList.contains("popup_opened")) {
       closePopup(popup);
-    }
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup)
     }
   });
 });
@@ -101,6 +99,10 @@ initialCards.forEach(function (item) {
   placeCard.append(card)
 })
 
+function resetFormCard (){
+  formCard.reset()
+  buttonSubmitCard.classList.add('popup__botton-keep_type_disabled')
+}
 
 formProfile.addEventListener('submit', formSubmitHandler);
 formCard.addEventListener('submit', cardSubmitHandler);
