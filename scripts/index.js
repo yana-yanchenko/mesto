@@ -1,5 +1,5 @@
 const buttonEditProfile = document.querySelector('.profile__button-edit')
-const popups = document.querySelectorAll(".popup");
+const popups = document.querySelectorAll('.popup')
 const popupProfile = document.querySelector('.popup_type_profile')
 const popupCard = document.querySelector('.popup_type_card')
 const popupPhoto = document.querySelector('.popup_type_photo')
@@ -26,33 +26,31 @@ function openPropfilePopup() {
 }
 
 function openPopup(element) {
-  element.classList.add('popup_opened');
+  element.classList.add('popup_opened')
   document.addEventListener('keydown', handleCloseEscape)
 }
 
 function closePopup(element) {
-  element.classList.remove('popup_opened');
+  element.classList.remove('popup_opened')
   document.removeEventListener('keydown', handleCloseEscape)
 }
 
-function formSubmitHandler(evt) {
-  evt.preventDefault();
+function handleProfileFormSubmit() {
   nameProfile.textContent = nameInput.value
   jobProfile.textContent = jobInput.value
   closePopup(popupProfile)
 }
 
-function cardSubmitHandler(evt) {
-  evt.preventDefault();
+function handleCardFormSubmit() {
   placeCard.prepend(renderCard(titleInput.value, linkInput.value))
   closePopup(popupCard)
-  resetFormCard()
+  buttonSubmitCard.classList.add('popup__botton-keep_type_disabled') 
 }
 
 popups.forEach((popup) => {
   popup.addEventListener("click", (evt) => {
     if (evt.target.classList.contains("popup__button-close") || evt.target.classList.contains("popup_opened")) {
-      closePopup(popup);
+      closePopup(popup)
     }
   });
 });
@@ -80,14 +78,14 @@ function handleImagePopup(name, link) {
 }
 
 function renderCard(name, link) {
-  const templateCard = document.querySelector('.template').content.querySelector('.element').cloneNode(true);
-  const buttonCardLike = templateCard.querySelector('.element__button-like');
-  const buttonCardDelete = templateCard.querySelector('.element__button-delete');
-  const imageCard = templateCard.querySelector('.element__image');
-  const titleCard = templateCard.querySelector('.element__title');
-  titleCard.textContent = name;
-  imageCard.src = link;
-  imageCard.alt = name;
+  const templateCard = document.querySelector('.template').content.querySelector('.element').cloneNode(true)
+  const buttonCardLike = templateCard.querySelector('.element__button-like')
+  const buttonCardDelete = templateCard.querySelector('.element__button-delete')
+  const imageCard = templateCard.querySelector('.element__image')
+  const titleCard = templateCard.querySelector('.element__title')
+  titleCard.textContent = name
+  imageCard.src = link
+  imageCard.alt = name
   buttonCardDelete.addEventListener('click', handleDeleteCard)
   buttonCardLike.addEventListener('click', handleLikeCard)
   imageCard.addEventListener('click', () => handleImagePopup(name, link))
@@ -95,16 +93,12 @@ function renderCard(name, link) {
 }
 
 initialCards.forEach(function (item) {
-  const card = renderCard(item.name, item.link);
+  const card = renderCard(item.name, item.link)
   placeCard.append(card)
 })
 
-function resetFormCard (){
-  formCard.reset()
-  buttonSubmitCard.classList.add('popup__botton-keep_type_disabled')
-}
 
-formProfile.addEventListener('submit', formSubmitHandler);
-formCard.addEventListener('submit', cardSubmitHandler);
-buttonEditProfile.addEventListener('click', () => openPropfilePopup());
+formProfile.addEventListener('submit', handleProfileFormSubmit)
+formCard.addEventListener('submit', handleCardFormSubmit)
+buttonEditProfile.addEventListener('click', () => openPropfilePopup())
 buttonAddCard.addEventListener('click', () => openPopup(popupCard))

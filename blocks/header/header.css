@@ -10,5 +10,6 @@
   .header {
     padding-left: 27px;
     padding-top: 28px;
+    width: auto;
   }
 }
