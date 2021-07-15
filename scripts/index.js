@@ -44,7 +44,6 @@ function handleProfileFormSubmit() {
 function handleCardFormSubmit() {
   placeCard.prepend(renderCard(titleInput.value, linkInput.value))
   closePopup(popupCard)
-  buttonSubmitCard.classList.add('popup__botton-keep_type_disabled') 
 }
 
 popups.forEach((popup) => {
