@@ -1,23 +1,28 @@
-const buttonEditProfile = document.querySelector('.profile__button-edit')
-const popups = document.querySelectorAll('.popup')
-const popupProfile = document.querySelector('.popup_type_profile')
-const popupCard = document.querySelector('.popup_type_card')
-const popupPhoto = document.querySelector('.popup_type_photo')
-const buttonClose = document.querySelector('.popup__button-close')
-const formProfile = document.querySelector('.popup__form_profile')
-const formCard = document.querySelector('.popup__form_card')
-const nameInput = document.querySelector('.popup__input_value_name')
-const jobInput = document.querySelector('.popup__input_value_occupation')
-const titleInput = document.querySelector('.popup__input_value_title')
-const linkInput = document.querySelector('.popup__input_value_link')
-const popupImage = document.querySelector('.popup__image')
-const popupCaption = document.querySelector('.popup__caption')
-const nameProfile = document.querySelector('.profile__name')
-const jobProfile = document.querySelector('.profile__occupation')
+import {
+  buttonEditProfile,
+  popups,
+  popupProfile,
+  popupCard,
+  popupPhoto,
+  buttonClose,
+  formProfile,
+  formCard,
+  nameInput,
+  jobInput,
+  titleInput,
+  linkInput,
+  popupImage,
+  popupCaption,
+  nameProfile,
+  jobProfile,
+  buttonAddCard,
+  placeCard,
+  buttonSubmitCard,
+  initialCards
+} from "./constants.js";
 
-const buttonAddCard = document.querySelector('.profile__button-add')
-const placeCard = document.querySelector('.elements')
-const buttonSubmitCard = document.querySelector('.popup__button-keep')
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 function openPropfilePopup() {
   nameInput.value = nameProfile.textContent
@@ -35,15 +40,22 @@ function closePopup(element) {
   document.removeEventListener('keydown', handleCloseEscape)
 }
 
-function handleProfileFormSubmit() {
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault()
   nameProfile.textContent = nameInput.value
   jobProfile.textContent = jobInput.value
+  console.log(nameInput.value)
   closePopup(popupProfile)
 }
 
-function handleCardFormSubmit() {
-  placeCard.prepend(renderCard(titleInput.value, linkInput.value))
+function handleCardFormSubmit(evt) {
+  evt.preventDefault()
+  const data = {}
+  data.name = titleInput.value 
+  data.link = linkInput.value
+  placeCard.prepend(renderCard(data))
   closePopup(popupCard)
+  formCard.reset()
 }
 
 popups.forEach((popup) => {
@@ -76,23 +88,28 @@ function handleImagePopup(name, link) {
   popupImage.alt = name
 }
 
-function renderCard(name, link) {
-  const templateCard = document.querySelector('.template').content.querySelector('.element').cloneNode(true)
-  const buttonCardLike = templateCard.querySelector('.element__button-like')
-  const buttonCardDelete = templateCard.querySelector('.element__button-delete')
-  const imageCard = templateCard.querySelector('.element__image')
-  const titleCard = templateCard.querySelector('.element__title')
-  titleCard.textContent = name
-  imageCard.src = link
-  imageCard.alt = name
-  buttonCardDelete.addEventListener('click', handleDeleteCard)
-  buttonCardLike.addEventListener('click', handleLikeCard)
-  imageCard.addEventListener('click', () => handleImagePopup(name, link))
-  return templateCard
+// function renderCard(name, link) {
+//   const templateCard = document.querySelector('.template').content.querySelector('.element').cloneNode(true)
+//   const buttonCardLike = templateCard.querySelector('.element__button-like')
+//   const buttonCardDelete = templateCard.querySelector('.element__button-delete')
+//   const imageCard = templateCard.querySelector('.element__image')
+//   const titleCard = templateCard.querySelector('.element__title')
+//   titleCard.textContent = name
+//   imageCard.src = link
+//   imageCard.alt = name
+//   buttonCardDelete.addEventListener('click', handleDeleteCard)
+//   buttonCardLike.addEventListener('click', handleLikeCard)
+//   imageCard.addEventListener('click', () => handleImagePopup(name, link))
+//   return templateCard
+// }
+
+function renderCard(item) {
+  const card = new Card(item, '.template')
+  return card.generateCard()
 }
 
 initialCards.forEach(function (item) {
-  const card = renderCard(item.name, item.link)
+  const card = renderCard(item)
   placeCard.append(card)
 })
 
@@ -101,3 +118,15 @@ formProfile.addEventListener('submit', handleProfileFormSubmit)
 formCard.addEventListener('submit', handleCardFormSubmit)
 buttonEditProfile.addEventListener('click', () => openPropfilePopup())
 buttonAddCard.addEventListener('click', () => openPopup(popupCard))
+
+
+const config = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-keep',
+  inactiveButtonClass: 'popup__botton-keep_type_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_type_activ'
+}
+
+const validProfile = new FormValidator(config, popupProfile)
+validProfile.enableValidation()
