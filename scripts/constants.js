@@ -17,7 +17,7 @@ export const jobProfile = document.querySelector('.profile__occupation')
 
 export const buttonAddCard = document.querySelector('.profile__button-add')
 export const placeCard = document.querySelector('.elements')
-export const buttonSubmitCard = document.querySelector('.popup__button-keep')
+export const buttonSubmitCard = document.querySelector('.popup__button-keep_type_card')
 
 export const initialCards = [{
   name: 'Архыз',
