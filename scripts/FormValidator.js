@@ -12,6 +12,13 @@ export default class FormValidator {
     this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
   };
 
+  resetValidation(){
+    this._toggleButtonState(); 
+      this._inputs.forEach((input) => {
+        this._hideInputError(input)
+      });
+  };
+
   _checkInputValidity(input) {
     if (!input.validity.valid) {
       this._showInputError(input);

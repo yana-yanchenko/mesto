@@ -14,7 +14,8 @@ import {
   buttonAddCard,
   buttonSubmitCard,
   placeCard,
-  initialCards
+  initialCards,
+  popupCaption
 } from "./constants.js";
 
 import Card from "./Card.js";
@@ -23,12 +24,13 @@ import FormValidator from "./FormValidator.js";
 function openPropfilePopup() {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
+  validProfile.resetValidation();
   openPopup(popupProfile);
 };
 
 function openPopupCard() {
   formCard.reset();
-  buttonSubmitCard.classList.add('popup__botton-keep_type_disabled');
+  validCard.resetValidation();
   openPopup(popupCard);
 };
 

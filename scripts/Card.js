@@ -1,4 +1,5 @@
 import {openPopup} from './index.js'
+import {popupPhoto, popupImage, popupCaption} from './constants.js'
 
 export default class Card {
   constructor (data, cardSelector) {
@@ -12,15 +13,14 @@ export default class Card {
   };
 
   _handleOpenPopup() {
-    this._popupImage = document.querySelector('.popup_type_photo');
-    this._popupImage.querySelector('.popup__image').src = this._link;
-    this._popupImage.querySelector('.popup__image').alt = this._name;
-    this._popupImage.querySelector('.popup__caption').textContent = this._name;
-    openPopup(this._popupImage);
+    popupImage.src = this._link;
+    popupImage.alt = this._name;
+    popupCaption.textContent = this._name;
+    openPopup(popupPhoto);
   };
 
   _handleLike() {
-    this._element.querySelector('.element__button-like').classList.toggle('element__button-like_active');
+    this._like.classList.toggle('element__button-like_active');
   };
 
   _handleDelete() {
@@ -46,9 +46,10 @@ export default class Card {
     this._image = this._element.querySelector('.element__image');
     this._like = this._element.querySelector('.element__button-like');
     this._delete = this._element.querySelector('.element__button-delete');
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._title = this._element.querySelector('.element__title');
+    this._image.src = this._link;
+    this._title.textContent = this._name;
+    this._image.alt = this._name;
     this._setEventListeners();
     return this._element;
   };
