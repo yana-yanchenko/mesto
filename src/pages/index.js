@@ -1,3 +1,4 @@
+import './index.css'
 import {
   buttonEditProfile,
   popups,
@@ -16,10 +17,10 @@ import {
   placeCard,
   initialCards,
   popupCaption
-} from "./constants.js";
+} from "../components/constants.js";
 
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 function openPropfilePopup() {
   nameInput.value = nameProfile.textContent;
