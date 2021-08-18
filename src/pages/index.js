@@ -42,9 +42,8 @@ const infoUser = new UserInfo(nameProfile, jobProfile);
 
   const profileForm = new PopupWithForm({
     popupSelector: '.popup_type_profile',
-    handleSubmitForm: () => {
-      nameProfile.textContent = nameInput.value;
-      jobProfile.textContent = jobInput.value;
+    handleSubmitForm: (info) => {
+      infoUser.setUserInfo(info)
     }
   });
   profileForm.setEventListeners();
@@ -61,6 +60,9 @@ const infoUser = new UserInfo(nameProfile, jobProfile);
   cardForm.setEventListeners();
 
 buttonEditProfile.addEventListener('click', () => {
+  const userData = infoUser.getUserInfo()
+  nameInput.value = userData.name;
+  jobInput.value = userData.occupation;
   profileForm.open()
   validProfile.resetValidation()
 });

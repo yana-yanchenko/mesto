@@ -24,7 +24,7 @@ export default class Popup {
   }; 
 
   setEventListeners(){
-    this._closeIcon.addEventListener("click", this.close);
-    document.addEventListener("click", this._handleOverlayClose);
+    this._closeIcon.addEventListener("mousedown", this.close);
+    document.addEventListener("mousedown", this._handleOverlayClose);
   }
 }

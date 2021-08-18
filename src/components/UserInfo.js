@@ -4,7 +4,7 @@ export default class UserInfo {
     this._occupation = occupation;
   }
   getUserInfo(){
-    userInfo = {}
+    const userInfo = {}
     userInfo.name = this._name.textContent;
     userInfo.occupation = this._occupation.textContent;
     return userInfo;
