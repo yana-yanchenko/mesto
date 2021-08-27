@@ -57,7 +57,6 @@ api.getInitialCards()
   })
   
 let user;
-console.log(user);
 
 api.getInfoUser()
   .then((data) => {
@@ -77,9 +76,17 @@ const cardRender = (item) => {
     },
     handleDeleteCard: () =>{
       popupWithDelete.open()
-    }
+    },
+    handleLikeCard: () => {
+      const btnLike = document.querySelector('.element__button-like')
+      if (btnLike.classList.contains('element__button-like_active')) {
+        console.log('ldizike');
+      } else {
+        console.log('like');
+      }
+    },
   });
-  return card.generateCard()
+  return card.generateCard();
 }
 
 
@@ -93,7 +100,6 @@ const profileForm = new PopupWithForm({
     console.log(info);
     api.setInfoUser(info.name, info.occupation)
       .then((info) => {
-        console.log(info)
         infoUser.setUserInfo(info)
       })
   }

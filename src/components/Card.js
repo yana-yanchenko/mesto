@@ -1,8 +1,6 @@
-import Api from './Api'
-import {api} from '../pages/index'
 
 export default class Card {
-  constructor (data, user, cardSelector, {handleCardClick, handleDeleteCard}) {
+  constructor (data, user, cardSelector, {handleCardClick, handleDeleteCard, handleLikeCard}) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
@@ -10,9 +8,9 @@ export default class Card {
     this._likes = data.likes;
     this._handleCardClick = handleCardClick; 
     this._owner = data.owner;
-    this._user = user
-    this._handleLikeCard = this._handleLikeCard.bind(this)
-    this._handleDeleteCard = handleDeleteCard
+    this._user = user;
+    this._handleLikeCard = handleLikeCard;
+    this._handleDeleteCard = handleDeleteCard;
   };
 
   
@@ -22,31 +20,12 @@ export default class Card {
   };
 
   _setUserMeLike(){
-    if (this._likes.some((i) => (this._user === i._id))) {
+    if (this._likes.some((i) => ( i._id === this._user))) {
       this._like.classList.add('element__button-like_active');
     }
   }
-
-  _handleLikeCard(){
-    if (!this._like.classList.contains('element__button-like_active')) {
-      api.setLikeCard(this._id)
-      .then((data) =>{
-        this._like.classList.add('element__button-like_active');
-        this._countLike.textContent = data.likes.length;
-        return
-      })
-    } else {
-      api.removeLikeCard(this._id)
-      .then((data) => {
-        this._like.classList.remove('element__button-like_active');
-        this._countLike.textContent = data.likes.length;
-        return
-      })
-    }
-  }
-
   _handleLike() {
-    this._like.classList.toggle('element__button-like_active');
+    this._handleLikeCard()
   };
 
   _handleDelete() {
@@ -55,7 +34,6 @@ export default class Card {
   };
 
   _setButtonDelete(){
-    console.log(this._user);
     if (this._owner._id !== this.user ) {
       this._delete.classList.add('element__button-delete_type_hidden')
     } else {
@@ -69,7 +47,7 @@ export default class Card {
     });
 
     this._like.addEventListener('click', () => {
-      this._handleLikeCard();
+      this._handleLike()
     });
     this._delete.addEventListener('click', () => {
       this._handleDeleteCard(this);
@@ -83,11 +61,11 @@ export default class Card {
     this._delete = this._element.querySelector('.element__button-delete');
     this._title = this._element.querySelector('.element__title');
     this._countLike = this._element.querySelector('.element__count-like');
-    this._countLike.textContent = this._likes.length;
+    this._countLike.textContent = this._likes.length
     this._image.src = this._link;
     this._title.textContent = this._name;
     this._image.alt = this._name;
-    this._setUserMeLike();
+    this._setUserMeLike()
     this._setButtonDelete();
     this._setEventListeners();
     return this._element;
