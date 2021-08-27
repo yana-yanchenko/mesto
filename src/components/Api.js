@@ -29,13 +29,14 @@ export default class Api {
       });
   }
 
-  setInfoUser(name, occupation) {
+  setInfoUser(name, occupation, avatar) {
     return fetch(`${this._url}/users/me`, {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
           name: name,
-          about: occupation
+          about: occupation,
+          avatar: avatar
         })
       })
       .then(res => {
@@ -45,6 +46,8 @@ export default class Api {
         return Promise.reject(`Ошибка ${res.status}`);
       });
   }
+
+  
 
   generateNewCard(name, link) {
     return fetch(`${this._url}/cards`, {

@@ -10,6 +10,7 @@ import {
   buttonAddCard,
   initialCards,
   config,
+  avatarProfile,
 } from "../components/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -21,7 +22,7 @@ import Api from '../components/Api';
 import PopupWithDelete from '../components/PopupWithDelete';
 import Popup from '../components/Popup';
 
-const infoUser = new UserInfo(nameProfile, jobProfile);
+const infoUser = new UserInfo(nameProfile, jobProfile, avatarProfile);
 const popupWithDelete = new PopupWithDelete({
   popupSelector: '.popup_type_delete',
   handleDeleteCard: () => {
@@ -89,10 +90,22 @@ const cardRender = (item) => {
   return card.generateCard();
 }
 
-
-
-const popupPhoto = new PopoupWithImage('.popup_type_photo')
+const popupPhoto = new PopupWithImage('.popup_type_photo')
 popupPhoto.setEventListeners()
+
+const profileAvatar = new PopupWithForm({
+  popupSelector: '.popup_type_avatar',
+  handleSubmitForm: (info) => {
+    console.log(info);
+    api.updateAvatar(info.avatar)
+      .then((data) => {
+        infoUser.setUserInfo(data)
+        profileAvatar.close()
+      })
+  }
+})
+
+profileAvatar.setEventListeners()
 
 const profileForm = new PopupWithForm({
   popupSelector: '.popup_type_profile',
@@ -118,6 +131,10 @@ const cardForm = new PopupWithForm({
   }
 });
 cardForm.setEventListeners();
+const avatar = document.querySelector('.profile__box-avatar')
+avatar.addEventListener('click', () => {
+profileAvatar.open()
+})
 
 buttonEditProfile.addEventListener('click', () => {
   const userData = infoUser.getUserInfo()

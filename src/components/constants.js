@@ -9,6 +9,7 @@ export const popupImage = document.querySelector('.popup__image')
 export const nameProfile = document.querySelector('.profile__name')
 export const jobProfile = document.querySelector('.profile__occupation')
 export const buttonAddCard = document.querySelector('.profile__button-add')
+export const avatarProfile = document.querySelector('.profile__avatar')
 
 export const config = {
   inputSelector: '.popup__input',
