@@ -13,7 +13,9 @@ _handleDelete(){
 
 setEventListeners(){
   super.setEventListeners()
-  this.buttonDelete.addEventListener('click', this._handleDelete)
+  this.buttonDelete.addEventListener('click',()=>{
+    this._handleDelete()
+  } )
 }
 
 }

@@ -16,7 +16,7 @@
     <main class="main">
       <div class="profile">
         <div class="profile__box-avatar">
-        <img class="profile__avatar" src="<%=require('./images/profile-photo.png')%>" alt="фото пользователя">
+        <img class="profile__avatar" src="#" alt="фото пользователя">
         <div class="profile__lens-avatar"></div>
       </div>
         <div class="profile__info">
@@ -77,14 +77,14 @@
     <div class="popup popup_type_avatar">
       <div class="popup__conteiner">
         <h2 class="popup__title">Обновить аватар</h2>
-        <form class="popup__form popup__form_card" name="form-avatar" novalidate>
-          <input class="popup__input popup__input_value_avatar" name="name" id="avatar" type="text" minlength="2" maxlength="30" placeholder="Ссылка" required>
-          <span class="popup__input-error" id="card-title-error"></span>
+        <form class="popup__form popup__form_avatar" name="form-avatar" novalidate>
+          <input class="popup__input popup__input_value_avatar" name="avatar" id="avatar" type="url" placeholder="Ссылка" required>
+          <span class="popup__input-error" id="avatar-error"></span>
+          <button class="popup__button-keep popup__button-keep_type_avatar" type="submit" name="keep" aria-label="Сохранить">Сохранить</button>
           </form>
-          <button class="popup__button-keep" type="button" name="keep" aria-label="Сохранить">Сохранить</button>
         <button class="popup__button-close" type="button" name="close" aria-label="закрыть"></button>
       </div>
-    </div>
+    </div> 
     <div class="popup popup_type_photo">
       <figure class="popup__place-image">
         <img class="popup__image" src="#" alt="#">
