@@ -35,30 +35,25 @@ export const api = new Api({
   }
 })
 
-//Загрузка карточек
-api.getInitialCards()
-  .then((data) => {
-    console.log(data)
-    containerCard = new Section({
-      items: data,
-      renderer: (item) => {
-        containerCard.addItem(cardRender(item))
-      }
-    }, '.elements');
-    containerCard.renderItems()
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
-api.getInfoUser()
-  .then((data) => {
-    user = data._id
-    infoUser.setUserInfo(data)
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+Promise.all([
+  api.getInfoUser(),
+  api.getInitialCards()
+])
+.then(([data, cards]) => {
+  user = data._id
+  infoUser.setUserInfo(data)
+  containerCard = new Section({
+    items: cards,
+    renderer: (item) => {
+      containerCard.addItem(cardRender(item))
+    }
+  }, '.elements');
+  containerCard.renderItems()
+  
+})
+.catch((err) =>{
+  console.log(err);
+})
 
 const cardRender = (item) => {
   const card = new Card(item, user, '.template', {
@@ -77,11 +72,17 @@ const cardRender = (item) => {
         .then((data) => {
           card.toggleLike(data)
         })
+        .catch((err) => {
+          console.log(err)
+        })
         return
       } else {
         api.setLikeCard(id)
         .then((data) =>{
           card.toggleLike(data)
+        })
+        .catch((err) => {
+          console.log(err)
         })
         return
       }
@@ -108,7 +109,10 @@ const profileAvatar = new PopupWithForm({
     isLoading(popupAvatar, false)
     api.updateAvatar(data.avatar)
       .then((data) => {
-        infoUser.setUserInfo(data)  
+        infoUser.setUserInfo(data)
+      })
+      .catch((err) => {
+        console.log(err)
       })
       .finally(() => {
         isLoading(popupAvatar, true)
@@ -125,6 +129,9 @@ const profileForm = new PopupWithForm({
       .then((info) => {
         infoUser.setUserInfo(info)
       })
+      .catch((err) => {
+        console.log(err)
+      })
       .finally(() => {
         profileForm.close();
         isLoading(popupProfile, true)
@@ -139,6 +146,9 @@ const cardForm = new PopupWithForm({
     api.generateNewCard(data.name, data.link)
       .then((data) => {
         containerCard.addNewCard(cardRender(data))
+      })
+      .catch((err) => {
+        console.log(err)
       })
       .finally(() => {
         cardForm.close();
@@ -155,6 +165,9 @@ const popupWithDelete = new PopupWithDelete({
     .then(() => {
       popupWithDelete.obj.handleDelete()
       popupWithDelete.close()
+    })
+    .catch((err) => {
+      console.log(err)
     })
     .finally(() => {
       popupWithDelete.close();
