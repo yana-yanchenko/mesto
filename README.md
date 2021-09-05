@@ -28,6 +28,28 @@
 - чтобы начать работу, введите команду: npm run dev (режим разработки)
 - чтобы собрать проект, введите команду npm run build (режим сборки)
 
+## :open_file_folder: Файловая структура
+
+```
+Mesto
+├── dist
+├── src
+│ ├── blocks
+│ ├── components
+│ ├── images
+│ ├── pages
+│ ├── fonts
+│ ├── vendor
+│ └── index.html
+├── babel.config.js
+├── webpack.config.js
+├── package.json
+├── .nojekyll
+├── package-lock.json
+├── postcss.config.js
+└── .gitignore
+```
+
 #### Статус проекта: в разработке.
 Планы по доработке: 
 - Добавить спинер при подрузке сервера 
